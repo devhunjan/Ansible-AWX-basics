@@ -1,8 +1,12 @@
 ---
-- name: Test Connection Playbook
+- name: Test Catalyst 8k Connection
   hosts: all
   gather_facts: no
   tasks:
-    - name: Ping the router
+    - name: Get Device Facts
+      cisco.ios.ios_facts:
+      register: result
+
+    - name: Show Version
       ansible.builtin.debug:
-        msg: "AWX successfully pulled this playbook!"
+        var: result.ansible_facts.ansible_net_version

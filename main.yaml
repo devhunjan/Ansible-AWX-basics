@@ -1,1 +1,8 @@
-
+---
+- name: Test Connection Playbook
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Ping the router
+      ansible.builtin.debug:
+        msg: "AWX successfully pulled this playbook!"

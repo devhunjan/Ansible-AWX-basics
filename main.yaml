@@ -3,10 +3,17 @@
   hosts: all
   gather_facts: no
   tasks:
-    - name: Get Device Facts
-      cisco.ios.ios_facts:
-      register: result
+    - name: update device hostname
+      cisco.ios.ios_config:
+        lines:
+          - hostname test-devnet-switch111
+    
+    - name: verify if name change are there
+      cisco.ios.ios_command:
+        commands: show run | include hostname
+      register: output
 
-    - name: Show Version
+    - name: printer the show version output
       ansible.builtin.debug:
-        var: result.ansible_facts.ansible_net_version
+        var: output.stdout_lines
+
